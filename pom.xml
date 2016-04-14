@@ -21,7 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.xuyingqi</groupId>
-			<artifactId>jar</artifactId>
+			<artifactId>util</artifactId>
 			<version>${xuyingqi.version}</version>
 		</dependency>
 	</dependencies>
