@@ -23,6 +23,7 @@
 			<groupId>cn.xuyingqi</groupId>
 			<artifactId>util</artifactId>
 			<version>${xuyingqi.version}</version>
+			<classifier>java</classifier>
 		</dependency>
 	</dependencies>
 

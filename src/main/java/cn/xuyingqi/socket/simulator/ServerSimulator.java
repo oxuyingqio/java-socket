@@ -7,7 +7,7 @@ import cn.xuyingqi.socket.server.Server;
 public class ServerSimulator {
 	public static void main(String[] args) {
 		try {
-			Server server = new Server(11021);
+			Server server = new Server(60000);
 			server.activate();
 		} catch (IOException e) {
 			e.printStackTrace();
