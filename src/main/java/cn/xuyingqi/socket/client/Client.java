@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
@@ -34,8 +36,6 @@ public class Client {
 	private String host;
 	// 端口号
 	private int port;
-	// 是否已创建套接字连接
-	private boolean connection = false;
 	// 重新创建套接字连接时间
 	private long reconnectTime = DEFAULT_RECONNECT_TIME;
 	// 重新创建套接字连接次数
@@ -105,7 +105,7 @@ public class Client {
 		// 创建套接字连接次数
 		int connectTimes = 1;
 		// 开启创建套接字连接
-		while (!this.connection) {
+		while (this.socket == null || this.socket.isClosed()) {
 			try {
 				// 创建套接字连接
 				this.socket = new Socket(this.host, this.port);
@@ -113,11 +113,9 @@ public class Client {
 				this.is = this.socket.getInputStream();
 				// 获取字节输出流
 				this.os = this.socket.getOutputStream();
-				// 套接字连接已创建
-				this.connection = true;
 				// 日志
 				this.logger.info("与服务器(" + this.host + ":" + this.port + ")已连接");
-			} catch (ConnectException e) {
+			} catch (ConnectException | NoRouteToHostException e) {
 				// 判断是否超出最大连接次数
 				if (connectTimes <= this.reconnectTimes) {
 					// 日志
@@ -157,7 +155,15 @@ public class Client {
 		BufferedOutputStream bos = new BufferedOutputStream(this.os);
 		// 发送消息
 		bos.write(msg);
-		bos.flush();
+		try {
+			bos.flush();
+		} catch (SocketException e) {
+			try {
+				this.reCon();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
 		// 日志
 		this.logger.info("向服务器(" + this.host + ":" + this.port + ")发送消息：" + new String(msg, this.charset));
 	}
@@ -250,7 +256,7 @@ public class Client {
 	 */
 	public void close() throws IOException {
 		// 若套接字不为空
-		if (this.socket != null) {
+		if (this.socket != null && this.socket.isConnected()) {
 			// 关闭字节输入流
 			this.is.close();
 			// 关闭字节输出流
@@ -260,5 +266,10 @@ public class Client {
 			// 日志
 			this.logger.info("与服务器(" + this.host + ":" + this.port + ")已断开");
 		}
+	}
+
+	public void reCon() throws IOException, InterruptedException {
+		this.close();
+		this.init();
 	}
 }

@@ -9,14 +9,13 @@ public class ClientSimulator implements Runnable {
 
 	@Override
 	public void run() {
+		Client client = null;
 		try {
-			Client client = new Client("127.0.0.1", 11021);
-			for (int i = 10; i > 0; i--) {
-				client.sendMsg("距离断开连接，剩余" + i + "秒");
-				client.acceptMsg2String();
+			client = new Client("192.168.70.122", 60000, 1000, Integer.MAX_VALUE);
+			while (true) {
+				client.sendMsg("1111111111111111");
 				Thread.sleep(1000);
 			}
-			client.close();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -27,10 +26,8 @@ public class ClientSimulator implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 1; i++) {
-			ClientSimulator cs = new ClientSimulator();
-			Thread t = new Thread(cs);
-			t.start();
-		}
+		ClientSimulator cs = new ClientSimulator();
+		Thread t = new Thread(cs);
+		t.start();
 	}
 }
