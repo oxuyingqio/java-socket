@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.simulator;
+package cn.xuyingqi.socket.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
