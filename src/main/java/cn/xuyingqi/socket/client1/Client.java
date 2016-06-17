@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.client;
+package cn.xuyingqi.socket.client1;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

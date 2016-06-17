@@ -3,7 +3,7 @@ package cn.xuyingqi.socket.client;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import cn.xuyingqi.socket.client.Client;
+import cn.xuyingqi.socket.client1.Client;
 
 public class ClientSimulator implements Runnable {
 

@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.server;
+package cn.xuyingqi.socket.server1;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import cn.xuyingqi.socket.server.impl.SocketByteMsgHandler;
+import cn.xuyingqi.socket.server1.impl.SocketByteMsgHandler;
 
 /**
  * 服务器

@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.server.impl;
+package cn.xuyingqi.socket.server1.impl;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -8,7 +8,7 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
-import cn.xuyingqi.socket.server.SocketMsgHandler;
+import cn.xuyingqi.socket.server1.SocketMsgHandler;
 
 /**
  * Byte消息处理器
@@ -39,6 +39,10 @@ public class SocketByteMsgHandler implements SocketMsgHandler {
 			while ((temp = bis.read(msg)) != -1) {
 				// 日志
 				this.logger.info("接收客户端(" + clientName + ")消息：" + new String(msg, 0, temp, DEFAULT_CHARSET));
+
+				for (int i = 0; i < temp; i++) {
+					this.logger.info("第" + i + "个字节是：" + msg[i]);
+				}
 
 				// 向客户端发送消息
 				String returnMsg = "我是服务器";
