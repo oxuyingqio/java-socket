@@ -8,28 +8,28 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.log4j.Logger;
 
-import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
+import cn.xuyingqi.socket.tcp.protocol.NioTCPProtocol;
 
 /**
- * TCP/IP协议抽象类
+ * 非阻塞式TCP协议抽象类
  * 
  * @author XuYQ
  *
  */
-public abstract class AbstractTCPProtocol implements TCPProtocol {
+public abstract class AbstractNioTCPProtocol implements NioTCPProtocol {
 
 	// 日志
-	private Logger logger = Logger.getLogger(TCPProtocol.class);
+	private Logger logger = Logger.getLogger(NioTCPProtocol.class);
 
 	// 缓冲区大小
 	private int bufferSize;
 
 	/**
-	 * TCP/IP抽象类
+	 * 非阻塞式TCP协议抽象类
 	 * 
 	 * @param bufferSize
 	 */
-	public AbstractTCPProtocol(int bufferSize) {
+	public AbstractNioTCPProtocol(int bufferSize) {
 		this.bufferSize = bufferSize;
 	}
 
@@ -41,8 +41,7 @@ public abstract class AbstractTCPProtocol implements TCPProtocol {
 		// 设置非阻塞
 		clientChannel.configureBlocking(false);
 		// 注册选择器,并设定可以进行读/写操作,以及设定缓冲区
-		clientChannel.register(key.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE,
-				ByteBuffer.allocate(this.bufferSize));
+		clientChannel.register(key.selector(), SelectionKey.OP_READ, ByteBuffer.allocate(this.bufferSize));
 
 		// 打印日志
 		this.logger.info(

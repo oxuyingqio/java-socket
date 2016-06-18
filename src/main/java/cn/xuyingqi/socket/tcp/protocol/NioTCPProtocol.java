@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.nio.channels.SelectionKey;
 
 /**
- * TCP/IP协议
+ * 非阻塞式 TCP协议
  * 
  * @author XuYQ
  *
  */
-public interface TCPProtocol {
+public interface NioTCPProtocol {
 
 	/**
 	 * 接收一个SocketChannel的处理

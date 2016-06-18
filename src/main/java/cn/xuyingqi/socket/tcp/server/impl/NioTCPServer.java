@@ -7,11 +7,11 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.Iterator;
 
-import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
+import cn.xuyingqi.socket.tcp.protocol.NioTCPProtocol;
 import cn.xuyingqi.socket.tcp.server.TCPServer;
 
 /**
- * TCP/IP服务器
+ * 非阻塞式 TCP服务器
  * 
  * @author XuYQ
  *
@@ -32,44 +32,38 @@ public class NioTCPServer implements TCPServer {
 	// 超时时间
 	private int timeOut = DEFAULT_TIMEOUT;
 
-	// TCP/IP协议
-	private TCPProtocol tcpProtocol;
+	// 非阻塞式TCP协议
+	private NioTCPProtocol tcpProtocol;
 
 	// 选择器
 	private Selector selector;
 
 	/**
-	 * 获取主机名称
+	 * 非阻塞式 TCP服务器
 	 * 
-	 * @return
+	 * @param tcpProtocol
+	 *            非阻塞式TCP协议
 	 */
+	public NioTCPServer(NioTCPProtocol tcpProtocol) {
+		this.tcpProtocol = tcpProtocol;
+	}
+
+	@Override
 	public String getHostName() {
 		return hostName;
 	}
 
-	/**
-	 * 设置主机名称
-	 * 
-	 * @param hostName
-	 */
+	@Override
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
 
-	/**
-	 * 获取端口号
-	 * 
-	 * @return
-	 */
+	@Override
 	public int getPort() {
 		return port;
 	}
 
-	/**
-	 * 设置端口号
-	 * 
-	 * @param port
-	 */
+	@Override
 	public void setPort(int port) {
 		this.port = port;
 	}
@@ -92,29 +86,6 @@ public class NioTCPServer implements TCPServer {
 		this.timeOut = timeOut;
 	}
 
-	/**
-	 * 获取TCP/IP协议
-	 * 
-	 * @return
-	 */
-	public TCPProtocol getTcpProtocol() {
-		return tcpProtocol;
-	}
-
-	/**
-	 * 设置TCP/IP协议
-	 * 
-	 * @param tcpProtocol
-	 */
-	public void setTcpProtocol(TCPProtocol tcpProtocol) {
-		this.tcpProtocol = tcpProtocol;
-	}
-
-	/**
-	 * 初始化TCP/IP服务
-	 * 
-	 * @throws IOException
-	 */
 	@Override
 	public void init() throws IOException {
 
@@ -131,22 +102,19 @@ public class NioTCPServer implements TCPServer {
 		serverChannel.register(this.selector, SelectionKey.OP_ACCEPT);
 	}
 
-	/**
-	 * 激活TCP/IP服务
-	 */
 	@Override
 	public void activate() {
-		// 启动TCP/IP服务器线程
-		new Thread(new TCPServerThread()).start();
+		// 启动TCP服务器线程
+		new Thread(new NioTCPServerThread()).start();
 	}
 
 	/**
-	 * TCP/IP服务器线程
+	 * TCP服务器线程
 	 * 
 	 * @author XuYQ
 	 *
 	 */
-	private class TCPServerThread implements Runnable {
+	private class NioTCPServerThread implements Runnable {
 
 		@Override
 		public void run() {
