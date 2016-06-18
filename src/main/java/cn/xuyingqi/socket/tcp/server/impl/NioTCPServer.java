@@ -2,6 +2,7 @@ package cn.xuyingqi.socket.tcp.server.impl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -92,7 +93,7 @@ public class NioTCPServer implements TCPServer {
 	}
 
 	@Override
-	public void init() throws IOException {
+	public ServerSocket init() throws IOException {
 
 		// 打开选择器
 		this.selector = Selector.open();
@@ -108,11 +109,13 @@ public class NioTCPServer implements TCPServer {
 
 		// 打印日志
 		this.logger.info("服务(" + this.hostName + ":" + this.port + ")已注册");
+
+		return serverChannel.socket();
 	}
 
 	@Override
 	public void activate() {
-		
+
 		// 启动TCP服务器线程
 		new Thread(new NioTCPServerThread()).start();
 

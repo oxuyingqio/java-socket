@@ -93,7 +93,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	}
 
 	@Override
-	public void init() throws IOException {
+	public ServerSocket init() throws IOException {
 
 		// 创建Socket服务
 		this.server = new ServerSocket();
@@ -105,6 +105,9 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 		// 打印日志
 		this.logger.info("服务(" + this.hostName + ":" + this.port + ")已注册");
+
+		// 返回Socket服务
+		return this.server;
 	}
 
 	@Override
@@ -128,6 +131,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 		@Override
 		public void run() {
 
+			// 无限循环,阻塞式监听客户端accept动作
 			while (true) {
 
 				try {

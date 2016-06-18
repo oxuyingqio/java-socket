@@ -1,6 +1,7 @@
 package cn.xuyingqi.socket.tcp.server;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 
 /**
  * TCP服务器
@@ -41,9 +42,10 @@ public interface TCPServer {
 	/**
 	 * 服务器初始化
 	 * 
+	 * @return
 	 * @throws IOException
 	 */
-	public void init() throws IOException;
+	public ServerSocket init() throws IOException;
 
 	/**
 	 * 激活服务器

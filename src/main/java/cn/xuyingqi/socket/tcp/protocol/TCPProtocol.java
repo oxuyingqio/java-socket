@@ -11,7 +11,7 @@ import java.net.Socket;
 public interface TCPProtocol {
 
 	/**
-	 * 操作socket
+	 * 处理Socket
 	 * 
 	 * @param socket
 	 */
