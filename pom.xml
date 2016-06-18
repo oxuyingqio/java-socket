@@ -6,7 +6,7 @@
 	<artifactId>socket</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
-	<name>Socket通信</name>
+	<name>Socket</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
