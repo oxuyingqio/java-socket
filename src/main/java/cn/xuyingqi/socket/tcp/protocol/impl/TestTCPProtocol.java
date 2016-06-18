@@ -29,9 +29,8 @@ public class TestTCPProtocol implements TCPProtocol {
 		// 打印日志
 		this.logger.info("客户端(" + inetAddress + ":" + port + ")已连接");
 
-		try {
-			// 使用缓冲字节输入流
-			BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
+		// 使用缓冲字节输入流
+		try (BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());) {
 
 			// 获取客户端信息
 			byte[] msg = new byte[1024];

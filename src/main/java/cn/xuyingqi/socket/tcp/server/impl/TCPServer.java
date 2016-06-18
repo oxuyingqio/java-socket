@@ -29,6 +29,13 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	// 日志
 	private Logger logger = Logger.getLogger(cn.xuyingqi.socket.tcp.server.TCPServer.class);
 
+	// 连接时间性能
+	private Integer connectionTime;
+	// 延迟性能
+	private Integer latency;
+	// 带宽性能
+	private Integer bandwidth;
+
 	// 主机名称
 	private String hostName = DEFAULT_HOST_NAME;
 	// 端口号
@@ -41,6 +48,13 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	// 线程池调度者
 	private ExecutorService executor;
 
+	// 客户端超时时间
+	private Integer clientTimeout;
+	// 客户端活跃检测
+	private Boolean clientKeepAlive;
+	// 客户端消除缓冲延迟
+	private Boolean clientTcpNoDelay;
+
 	// 阻塞式TCP协议
 	private TCPProtocol tcpProtocol;
 
@@ -52,6 +66,22 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 */
 	public TCPServer(TCPProtocol tcpProtocol) {
 		this.tcpProtocol = tcpProtocol;
+	}
+
+	/**
+	 * 设置Socket服务性能
+	 * 
+	 * @param connectionTime
+	 *            连接时间性能
+	 * @param latency
+	 *            延迟性能
+	 * @param bandwidth
+	 *            带宽性能
+	 */
+	public void setPerformancePreferences(int connectionTime, int latency, int bandwidth) {
+		this.connectionTime = connectionTime;
+		this.latency = latency;
+		this.bandwidth = bandwidth;
 	}
 
 	@Override
@@ -92,11 +122,42 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 		this.threadPoolSize = threadPoolSize;
 	}
 
+	/**
+	 * 设置客户端超时时间
+	 * 
+	 * @param clientTimeout
+	 */
+	public void setClientTimeout(int clientTimeout) {
+		this.clientTimeout = clientTimeout;
+	}
+
+	/**
+	 * 设置客户端活跃度检测
+	 * 
+	 * @param clientKeepAlive
+	 */
+	public void setClientKeepAlive(boolean clientKeepAlive) {
+		this.clientKeepAlive = clientKeepAlive;
+	}
+
+	/**
+	 * 设置客户端消除缓冲延迟
+	 * 
+	 * @param clientTcpNoDelay
+	 */
+	public void setClientTcpNoDelay(Boolean clientTcpNoDelay) {
+		this.clientTcpNoDelay = clientTcpNoDelay;
+	}
+
 	@Override
 	public ServerSocket init() throws IOException {
 
 		// 创建Socket服务
 		this.server = new ServerSocket();
+		// 设置Socket服务性能
+		if (this.connectionTime != null && this.latency != null && this.bandwidth != null) {
+			this.server.setPerformancePreferences(this.connectionTime, this.latency, this.bandwidth);
+		}
 		// 绑定主机,端口号
 		this.server.bind(new InetSocketAddress(this.hostName, this.port));
 
@@ -134,9 +195,23 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 			// 无限循环,阻塞式监听客户端accept动作
 			while (true) {
 
-				try {
+				// 客户端Socket连接
+				try (Socket socket = server.accept();) {
+					// 设置超时时间
+					if (clientTimeout != null) {
+						socket.setSoTimeout(clientTimeout);
+					}
+					// 设置活跃检测
+					if (clientKeepAlive != null) {
+						socket.setKeepAlive(clientKeepAlive);
+					}
+					// 设置缓冲延迟
+					if (clientTcpNoDelay != null) {
+						socket.setTcpNoDelay(clientTcpNoDelay);
+					}
+
 					// 线程调度者中添加处理客户端连接的新线程
-					executor.execute(new TCPClientThread(server.accept()));
+					executor.execute(new TCPClientThread(socket));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
