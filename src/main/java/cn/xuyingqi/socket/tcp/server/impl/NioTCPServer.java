@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.server.tcp.impl;
+package cn.xuyingqi.socket.tcp.server.impl;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -7,8 +7,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.Iterator;
 
-import cn.xuyingqi.socket.server.tcp.TCPServer;
 import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
+import cn.xuyingqi.socket.tcp.server.TCPServer;
 
 /**
  * TCP/IP服务器

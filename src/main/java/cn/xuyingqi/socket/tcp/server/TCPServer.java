@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.server.tcp;
+package cn.xuyingqi.socket.tcp.server;
 
 import java.io.IOException;
 
