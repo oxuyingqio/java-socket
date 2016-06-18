@@ -33,7 +33,7 @@ public class NioTCPServer implements TCPServer {
 	private int timeOut = DEFAULT_TIMEOUT;
 
 	// 非阻塞式TCP协议
-	private NioTCPProtocol tcpProtocol;
+	private NioTCPProtocol nioTCPProtocol;
 
 	// 选择器
 	private Selector selector;
@@ -41,11 +41,11 @@ public class NioTCPServer implements TCPServer {
 	/**
 	 * 非阻塞式 TCP服务器
 	 * 
-	 * @param tcpProtocol
+	 * @param nioTCPProtocol
 	 *            非阻塞式TCP协议
 	 */
-	public NioTCPServer(NioTCPProtocol tcpProtocol) {
-		this.tcpProtocol = tcpProtocol;
+	public NioTCPServer(NioTCPProtocol nioTCPProtocol) {
+		this.nioTCPProtocol = nioTCPProtocol;
 	}
 
 	@Override
@@ -136,19 +136,19 @@ public class NioTCPServer implements TCPServer {
 							// 是否准备好接收新的套接字连接
 							if (key.isAcceptable()) {
 								// 处理新接收的套接字
-								tcpProtocol.handleAccept(key);
+								nioTCPProtocol.handleAccept(key);
 							}
 
 							// 是否准备好进行读取,即是否存在客户端发来数据
 							if (key.isReadable()) {
 								// 读取客户端数据
-								tcpProtocol.handleRead(key);
+								nioTCPProtocol.handleRead(key);
 							}
 
 							// 判断是否有效及可以发送给客户端
 							if (key.isValid() && key.isWritable()) {
 								// 向客户端写入数据
-								tcpProtocol.handleWrite(key);
+								nioTCPProtocol.handleWrite(key);
 							}
 						} catch (IOException ex) {
 							// 移除处理过的键
