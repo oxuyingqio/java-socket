@@ -7,6 +7,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
+
 import cn.xuyingqi.socket.tcp.protocol.NioTCPProtocol;
 import cn.xuyingqi.socket.tcp.server.TCPServer;
 
@@ -19,18 +21,21 @@ import cn.xuyingqi.socket.tcp.server.TCPServer;
 public class NioTCPServer implements TCPServer {
 
 	// 默认的主机名称
-	private static final String DEFAULT_HOSTNAME = "127.0.0.1";
+	private static final String DEFAULT_HOST_NAME = "127.0.0.1";
 	// 默认的端口号
 	private static final int DEFAULT_PORT = 60000;
 	// 默认的超时时间
 	private static final int DEFAULT_TIMEOUT = 3000;
 
+	// 日志
+	private Logger logger = Logger.getLogger(TCPServer.class);
+
 	// 主机名称
-	private String hostName = DEFAULT_HOSTNAME;
+	private String hostName = DEFAULT_HOST_NAME;
 	// 端口号
 	private int port = DEFAULT_PORT;
 	// 超时时间
-	private int timeOut = DEFAULT_TIMEOUT;
+	private int timeout = DEFAULT_TIMEOUT;
 
 	// 非阻塞式TCP协议
 	private NioTCPProtocol nioTCPProtocol;
@@ -73,8 +78,8 @@ public class NioTCPServer implements TCPServer {
 	 * 
 	 * @return
 	 */
-	public int getTimeOut() {
-		return timeOut;
+	public int getTimeout() {
+		return timeout;
 	}
 
 	/**
@@ -82,8 +87,8 @@ public class NioTCPServer implements TCPServer {
 	 * 
 	 * @param timeOut
 	 */
-	public void setTimeOut(int timeOut) {
-		this.timeOut = timeOut;
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
 	}
 
 	@Override
@@ -100,12 +105,19 @@ public class NioTCPServer implements TCPServer {
 		serverChannel.configureBlocking(false);
 		// 注册选择器,并设定可进行Accept操作
 		serverChannel.register(this.selector, SelectionKey.OP_ACCEPT);
+
+		// 打印日志
+		this.logger.info("服务(" + this.hostName + ":" + this.port + ")已注册");
 	}
 
 	@Override
 	public void activate() {
+		
 		// 启动TCP服务器线程
 		new Thread(new NioTCPServerThread()).start();
+
+		// 打印日志
+		this.logger.info("服务(" + this.hostName + ":" + this.port + ")已启动");
 	}
 
 	/**
