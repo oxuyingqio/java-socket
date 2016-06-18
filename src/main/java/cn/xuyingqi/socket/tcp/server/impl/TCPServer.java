@@ -36,13 +36,13 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	// 线程池大小
 	private int threadPoolSize = DEFAULT_THREAD_POOL_SIZE;
 
-	// 阻塞式TCP协议
-	private TCPProtocol tcpProtocol;
-
 	// 服务器Socket
 	private ServerSocket server;
 	// 线程池调度者
 	private ExecutorService executor;
+
+	// 阻塞式TCP协议
+	private TCPProtocol tcpProtocol;
 
 	/**
 	 * 阻塞式TCP服务器
@@ -99,6 +99,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 		this.server = new ServerSocket();
 		// 绑定主机,端口号
 		this.server.bind(new InetSocketAddress(this.hostName, this.port));
+
 		// 创建线程池
 		this.executor = Executors.newFixedThreadPool(this.threadPoolSize);
 
@@ -130,7 +131,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 			while (true) {
 
 				try {
-					// 向线程池中添加新的处理套接字线程
+					// 线程调度者中添加处理客户端连接的新线程
 					executor.execute(new TCPClientThread(server.accept()));
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -140,18 +141,18 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	}
 
 	/**
-	 * TCP客户端线程
+	 * TCP客户端处理线程
 	 * 
 	 * @author XuYQ
 	 *
 	 */
 	private class TCPClientThread implements Runnable {
 
-		// 客户端Socket
+		// 客户端连接Socket
 		private Socket socket;
 
 		/**
-		 * TCP客户端线程
+		 * TCP客户端处理线程
 		 * 
 		 * @param socket
 		 */
