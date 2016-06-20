@@ -45,6 +45,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 	// 服务器Socket
 	private ServerSocket server;
+	// private SSLServerSocket server;
 	// 线程池调度者
 	private ExecutorService executor;
 
@@ -154,6 +155,8 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 		// 创建Socket服务
 		this.server = new ServerSocket();
+		// this.server = (SSLServerSocket)
+		// SSLServerSocketFactory.getDefault().createServerSocket();
 		// 设置Socket服务性能
 		if (this.connectionTime != null && this.latency != null && this.bandwidth != null) {
 			this.server.setPerformancePreferences(this.connectionTime, this.latency, this.bandwidth);
