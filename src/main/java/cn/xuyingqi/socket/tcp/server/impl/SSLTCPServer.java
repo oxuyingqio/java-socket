@@ -7,17 +7,20 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+
 import org.apache.log4j.Logger;
 
 import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
 
 /**
- * 阻塞式TCP服务器
+ * 阻塞式SSL安全TCP服务器
  * 
  * @author XuYQ
  *
  */
-public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
+public class SSLTCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 	// 默认的主机名称
 	private static final String DEFAULT_HOST_NAME = "127.0.0.1";
@@ -44,7 +47,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	private int threadPoolSize = DEFAULT_THREAD_POOL_SIZE;
 
 	// 服务器Socket
-	private ServerSocket server;
+	private SSLServerSocket server;
 	// 线程池调度者
 	private ExecutorService executor;
 
@@ -64,7 +67,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @param tcpProtocol
 	 *            阻塞式TCP协议
 	 */
-	public TCPServer(TCPProtocol tcpProtocol) {
+	public SSLTCPServer(TCPProtocol tcpProtocol) {
 		this.tcpProtocol = tcpProtocol;
 	}
 
@@ -153,7 +156,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	public ServerSocket init() throws IOException {
 
 		// 创建Socket服务
-		this.server = new ServerSocket();
+		this.server = (SSLServerSocket) SSLServerSocketFactory.getDefault().createServerSocket();
 		// 设置Socket服务性能
 		if (this.connectionTime != null && this.latency != null && this.bandwidth != null) {
 			this.server.setPerformancePreferences(this.connectionTime, this.latency, this.bandwidth);
