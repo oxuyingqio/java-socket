@@ -206,9 +206,9 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 			// 无限循环,阻塞式监听客户端accept动作
 			while (true) {
 
-				// 客户端Socket连接
-				try (Socket socket = server.accept();) {
-
+				try {
+					// 客户端Socket连接
+					Socket socket = server.accept();
 					// 设置超时时间
 					if (clientTimeout != null) {
 						socket.setSoTimeout(clientTimeout);
@@ -248,17 +248,13 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 		 * @param socket
 		 */
 		public TCPClientThread(Socket socket) {
-			
+
 			this.socket = socket;
 		}
 
 		@Override
 		public void run() {
-			
 			tcpProtocol.handle(this.socket);
-//			
-//			System.out.println(this.socket.isClosed());
-//			System.out.println(this.socket.isConnected());
 		}
 	}
 }
