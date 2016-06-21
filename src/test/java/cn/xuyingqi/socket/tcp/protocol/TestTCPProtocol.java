@@ -40,10 +40,10 @@ public class TestTCPProtocol implements TCPProtocol {
 				this.logger.info("客户端发送消息：" + sb.toString());
 			}
 
-//			// 关闭字节输入流
-//			bis.close();
-//			// 关闭套接字
-//			socket.close();
+			// 关闭字节输入流
+			bis.close();
+			// 关闭套接字
+			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

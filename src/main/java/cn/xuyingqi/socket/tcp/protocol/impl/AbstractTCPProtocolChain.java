@@ -12,14 +12,14 @@ import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
  */
 public abstract class AbstractTCPProtocolChain implements TCPProtocol {
 
-	// 后续的TCP协议处理者
+	// 后续的TCP协议
 	private AbstractTCPProtocolChain tcpProtocol;
 
 	@Override
 	public abstract void handle(Socket socket);
 
 	/**
-	 * 获取后续的TCP协议处理者
+	 * 获取后续的TCP协议
 	 * 
 	 * @return
 	 */
@@ -28,7 +28,7 @@ public abstract class AbstractTCPProtocolChain implements TCPProtocol {
 	}
 
 	/**
-	 * 设置后续的TCP协议处理者
+	 * 设置后续的TCP协议
 	 * 
 	 * @param tcpProtocol
 	 */
