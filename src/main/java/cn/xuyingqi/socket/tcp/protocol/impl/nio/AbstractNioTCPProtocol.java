@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.tcp.protocol.impl;
+package cn.xuyingqi.socket.tcp.protocol.impl.nio;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

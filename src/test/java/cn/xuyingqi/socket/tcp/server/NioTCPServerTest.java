@@ -2,8 +2,8 @@ package cn.xuyingqi.socket.tcp.server;
 
 import java.io.IOException;
 
-import cn.xuyingqi.socket.tcp.protocol.impl.TestNioTCPProtocol;
-import cn.xuyingqi.socket.tcp.server.impl.NioTCPServer;
+import cn.xuyingqi.socket.tcp.protocol.TestNioTCPProtocol;
+import cn.xuyingqi.socket.tcp.server.impl.nio.NioTCPServer;
 
 /**
  * 非阻塞式TCP服务测试

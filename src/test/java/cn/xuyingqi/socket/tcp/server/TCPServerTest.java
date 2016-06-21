@@ -2,7 +2,7 @@ package cn.xuyingqi.socket.tcp.server;
 
 import java.io.IOException;
 
-import cn.xuyingqi.socket.tcp.protocol.impl.TestTCPProtocol;
+import cn.xuyingqi.socket.tcp.protocol.TestTCPProtocol;
 
 /**
  * 阻塞式TCP服务测试

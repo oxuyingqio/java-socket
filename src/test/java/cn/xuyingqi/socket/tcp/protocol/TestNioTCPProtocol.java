@@ -1,6 +1,7 @@
-package cn.xuyingqi.socket.tcp.protocol.impl;
+package cn.xuyingqi.socket.tcp.protocol;
 
 import cn.xuyingqi.socket.tcp.protocol.NioTCPProtocol;
+import cn.xuyingqi.socket.tcp.protocol.impl.nio.AbstractNioTCPProtocol;
 
 /**
  * 非阻塞式TCP测试协议
