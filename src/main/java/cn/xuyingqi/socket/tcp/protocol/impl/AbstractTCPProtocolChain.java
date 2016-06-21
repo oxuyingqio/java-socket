@@ -5,15 +5,15 @@ import java.net.Socket;
 import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
 
 /**
- * 阻塞式TCP协议-责任链抽象处理者
+ * 阻塞式TCP协议-TCP协议抽象链
  * 
  * @author XuYQ
  *
  */
-public abstract class AbstractTCPProtocol implements TCPProtocol {
+public abstract class AbstractTCPProtocolChain implements TCPProtocol {
 
 	// 后续的TCP协议处理者
-	private AbstractTCPProtocol tcpProtocol;
+	private AbstractTCPProtocolChain tcpProtocol;
 
 	@Override
 	public abstract void handle(Socket socket);
@@ -23,7 +23,7 @@ public abstract class AbstractTCPProtocol implements TCPProtocol {
 	 * 
 	 * @return
 	 */
-	public AbstractTCPProtocol getTcpProtocol() {
+	public AbstractTCPProtocolChain getTcpProtocol() {
 		return tcpProtocol;
 	}
 
@@ -32,7 +32,7 @@ public abstract class AbstractTCPProtocol implements TCPProtocol {
 	 * 
 	 * @param tcpProtocol
 	 */
-	public void setTcpProtocol(AbstractTCPProtocol tcpProtocol) {
+	public void setTcpProtocol(AbstractTCPProtocolChain tcpProtocol) {
 		this.tcpProtocol = tcpProtocol;
 	}
 }
