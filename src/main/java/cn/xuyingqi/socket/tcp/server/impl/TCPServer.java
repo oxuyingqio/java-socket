@@ -65,6 +65,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 *            阻塞式TCP协议
 	 */
 	public TCPServer(TCPProtocol tcpProtocol) {
+
 		this.tcpProtocol = tcpProtocol;
 	}
 
@@ -79,6 +80,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 *            带宽性能
 	 */
 	public void setPerformancePreferences(int connectionTime, int latency, int bandwidth) {
+
 		this.connectionTime = connectionTime;
 		this.latency = latency;
 		this.bandwidth = bandwidth;
@@ -86,21 +88,25 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 	@Override
 	public String getHostName() {
+
 		return hostName;
 	}
 
 	@Override
 	public void setHostName(String hostName) {
+
 		this.hostName = hostName;
 	}
 
 	@Override
 	public int getPort() {
+
 		return port;
 	}
 
 	@Override
 	public void setPort(int port) {
+
 		this.port = port;
 	}
 
@@ -110,6 +116,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @return
 	 */
 	public int getThreadPoolSize() {
+
 		return threadPoolSize;
 	}
 
@@ -119,6 +126,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @param threadPoolSize
 	 */
 	public void setThreadPoolSize(int threadPoolSize) {
+
 		this.threadPoolSize = threadPoolSize;
 	}
 
@@ -128,6 +136,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @param clientTimeout
 	 */
 	public void setClientTimeout(int clientTimeout) {
+
 		this.clientTimeout = clientTimeout;
 	}
 
@@ -137,6 +146,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @param clientKeepAlive
 	 */
 	public void setClientKeepAlive(boolean clientKeepAlive) {
+
 		this.clientKeepAlive = clientKeepAlive;
 	}
 
@@ -146,6 +156,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 	 * @param clientTcpNoDelay
 	 */
 	public void setClientTcpNoDelay(Boolean clientTcpNoDelay) {
+
 		this.clientTcpNoDelay = clientTcpNoDelay;
 	}
 
@@ -197,6 +208,7 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 
 				// 客户端Socket连接
 				try (Socket socket = server.accept();) {
+
 					// 设置超时时间
 					if (clientTimeout != null) {
 						socket.setSoTimeout(clientTimeout);
@@ -236,12 +248,17 @@ public class TCPServer implements cn.xuyingqi.socket.tcp.server.TCPServer {
 		 * @param socket
 		 */
 		public TCPClientThread(Socket socket) {
+			
 			this.socket = socket;
 		}
 
 		@Override
 		public void run() {
+			
 			tcpProtocol.handle(this.socket);
+//			
+//			System.out.println(this.socket.isClosed());
+//			System.out.println(this.socket.isConnected());
 		}
 	}
 }

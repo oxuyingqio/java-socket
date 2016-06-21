@@ -2,12 +2,9 @@ package cn.xuyingqi.socket.tcp.protocol;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 
 import org.apache.log4j.Logger;
-
-import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
 
 /**
  * 阻塞式TCP测试协议
@@ -22,12 +19,6 @@ public class TestTCPProtocol implements TCPProtocol {
 
 	@Override
 	public void handle(Socket socket) {
-
-		// 获取客户端信息
-		InetAddress inetAddress = socket.getInetAddress();
-		int port = socket.getPort();
-		// 打印日志
-		this.logger.info("客户端(" + inetAddress + ":" + port + ")已连接");
 
 		// 使用缓冲字节输入流
 		try (BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());) {
@@ -53,8 +44,6 @@ public class TestTCPProtocol implements TCPProtocol {
 			bis.close();
 			// 关闭套接字
 			socket.close();
-			// 打印日志
-			this.logger.info("客户端(" + inetAddress + ":" + port + ")已断开");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
