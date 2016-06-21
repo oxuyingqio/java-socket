@@ -10,10 +10,10 @@ import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
  * @author XuYQ
  *
  */
-public abstract class AbstractTCPProtocolChain implements TCPProtocol {
+public abstract class TCPProtocolChain implements TCPProtocol {
 
 	// 后续的TCP协议
-	private AbstractTCPProtocolChain tcpProtocol;
+	private TCPProtocolChain tcpProtocol;
 
 	@Override
 	public abstract void handle(Socket socket);
@@ -23,7 +23,7 @@ public abstract class AbstractTCPProtocolChain implements TCPProtocol {
 	 * 
 	 * @return
 	 */
-	public AbstractTCPProtocolChain getTcpProtocol() {
+	public TCPProtocolChain getTcpProtocol() {
 		return tcpProtocol;
 	}
 
@@ -32,7 +32,7 @@ public abstract class AbstractTCPProtocolChain implements TCPProtocol {
 	 * 
 	 * @param tcpProtocol
 	 */
-	public void setTcpProtocol(AbstractTCPProtocolChain tcpProtocol) {
+	public void setTcpProtocol(TCPProtocolChain tcpProtocol) {
 		this.tcpProtocol = tcpProtocol;
 	}
 }

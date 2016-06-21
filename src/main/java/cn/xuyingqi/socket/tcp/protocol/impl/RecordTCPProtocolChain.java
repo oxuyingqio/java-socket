@@ -13,7 +13,7 @@ import cn.xuyingqi.socket.tcp.protocol.TCPProtocol;
  * @author XuYQ
  *
  */
-public class RecordTCPProtocolChain extends AbstractTCPProtocolChain implements TCPProtocol {
+public class RecordTCPProtocolChain extends TCPProtocolChain implements TCPProtocol {
 
 	// 日志
 	private Logger logger = Logger.getLogger(TCPProtocol.class);
