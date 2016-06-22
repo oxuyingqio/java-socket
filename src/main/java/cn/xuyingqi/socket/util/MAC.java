@@ -11,7 +11,7 @@ import cn.xuyingqi.util.util.ByteUtils;
  * @author XuYQ
  *
  */
-public class MacUtils {
+public class MAC {
 
 	/**
 	 * 获取MAC值,1块=8字节
@@ -24,7 +24,7 @@ public class MacUtils {
 	 *            初始向量
 	 * @return
 	 */
-	public static byte[] getMac(byte[] data, byte[] key, byte[] vector) {
+	public static byte[] getMAC(byte[] data, byte[] key, byte[] vector) {
 
 		// 若密钥或初始向量长度不为8,则抛字节数组长度错误异常
 		if (key.length != 8 || vector.length != 8) {
@@ -50,19 +50,23 @@ public class MacUtils {
 
 			// 获取异或字节数组
 			byte[] xor = ByteUtils.byteArrayXOR(vector, ArrayUtils.subarray(macData, i * 8, (i + 1) * 8));
-			desc(key,xor,vector);
+			byte[] demo = DES.encrypt(xor, key);
+
+			for (int j = 0, size = demo.length; j < size; j++) {
+//				System.out.print(demo[j] + " ");
+				System.out.print(Integer.toHexString(ByteUtils.byte2Int(demo[j])));
+			}
+			System.out.println("============");
 		}
 
 		return null;
 	}
 
 	public static void main(String[] args) {
-		int[] i1 = { 1, 2, 3, 4, 5 };
-		int[] i2 = new int[10];
-		System.arraycopy(i1, 0, i2, 0, i1.length);
+		byte[] data = { 0, 0, 0, 0, 0, 0, 0, 0 };
+		byte[] key = { 0, 0, 0, 0, 0, 0, 0, 0 };
+		byte[] vector = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-		for (int i = 0; i < i2.length; i++) {
-			System.out.println(i2[i]);
-		}
+		MAC.getMAC(data, key, vector);
 	}
 }
