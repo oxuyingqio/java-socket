@@ -62,7 +62,7 @@ public class MAC {
 			// 记录MAC值的原始长度
 			int macLength = mac.length;
 			// 扩展MAC值长度
-			mac = Arrays.copyOf(mac, ciphertext.length);
+			mac = Arrays.copyOf(mac, macLength + ciphertext.length);
 			// 将密文复制进MAC中
 			System.arraycopy(ciphertext, 0, mac, macLength, mac.length);
 		}
