@@ -64,7 +64,7 @@ public class MAC {
 			// 扩展MAC值长度
 			mac = Arrays.copyOf(mac, macLength + ciphertext.length);
 			// 将密文复制进MAC中
-			System.arraycopy(ciphertext, 0, mac, macLength, mac.length);
+			System.arraycopy(ciphertext, 0, mac, macLength, ciphertext.length);
 		}
 
 		return mac;
