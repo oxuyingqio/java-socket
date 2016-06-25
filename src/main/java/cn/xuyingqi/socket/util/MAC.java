@@ -1,7 +1,5 @@
 package cn.xuyingqi.socket.util;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import cn.xuyingqi.util.exception.ByteArrayLengthErrorException;
@@ -46,27 +44,17 @@ public class MAC {
 			macData[data.length + i] = 0;
 		}
 
-		// MAC值
-		byte[] mac = new byte[0];
-
 		// 获取对应块数
 		int blockLength = macData.length / 8;
 		// 遍历每一块
 		for (int i = 0; i < blockLength; i++) {
 
-			// 获取异或字节数组
-			byte[] xor = ByteUtils.xor(vector, ArrayUtils.subarray(macData, i * 8, (i + 1) * 8));
-			// 对异或字节数组进行DES加密
-			byte[] ciphertext = DES.encrypt(xor, key);
-
-			// 记录MAC值的原始长度
-			int macLength = mac.length;
-			// 扩展MAC值长度
-			mac = Arrays.copyOf(mac, macLength + ciphertext.length);
-			// 将密文复制进MAC中
-			System.arraycopy(ciphertext, 0, mac, macLength, ciphertext.length);
+			// 每一块与初始向量进行异或,并将结果赋予初始向量
+			vector = ByteUtils.xor(ArrayUtils.subarray(macData, i * 8, (i + 1) * 8), vector);
+			// 对初始向量进行DES加密,同时仅取前8位
+			vector = ArrayUtils.subarray(DES.encrypt(vector, key), 0, 8);
 		}
 
-		return mac;
+		return vector;
 	}
 }
