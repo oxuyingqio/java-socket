@@ -1,5 +1,11 @@
 package cn.xuyingqi.socket.tcp.client;
 
-public class TCPClient {
+/**
+ * TCP客户端
+ * 
+ * @author XuYQ
+ *
+ */
+public interface TCPClient {
 
 }
