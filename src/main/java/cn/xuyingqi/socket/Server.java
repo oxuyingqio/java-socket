@@ -10,7 +10,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
- * 服务器1
+ * 服务器
  * 
  * @author XuYQ
  *
