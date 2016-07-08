@@ -3,7 +3,7 @@ package cn.xuyingqi.socket;
 import org.apache.log4j.Logger;
 
 /**
- * 服务器
+ * 服务器1
  * 
  * @author XuYQ
  *
