@@ -39,12 +39,42 @@ public class ServerConfig {
 	private ServerPreferences serverPreferences = new ServerPreferences();
 
 	/**
+	 * 客户端参数
+	 */
+	@XmlElement(name = "client-preferences")
+	private ClientPreferences clientPreferences;
+
+	/**
+	 * Servlet
+	 */
+	@XmlElement(name = "servlet")
+	private Servlet servlet = new Servlet();
+
+	/**
 	 * 获取服务器参数
 	 * 
 	 * @return
 	 */
 	public ServerPreferences getServerPreferences() {
 		return serverPreferences;
+	}
+
+	/**
+	 * 获取客户端参数
+	 * 
+	 * @return
+	 */
+	public ClientPreferences getClientPreferences() {
+		return clientPreferences;
+	}
+
+	/**
+	 * 获取Servlet
+	 * 
+	 * @return
+	 */
+	public Servlet getServlet() {
+		return servlet;
 	}
 
 	/**
@@ -86,7 +116,16 @@ public class ServerConfig {
 		 * 默认端口号
 		 */
 		private static final int DEFAULT_PORT = 60000;
+		/**
+		 * 默认最大连接数
+		 */
+		private static final int DEFAULT_MAX_CONNECTIONS = 10;
 
+		/**
+		 * 性能参数
+		 */
+		@XmlElement(name = "performance-preferences")
+		private PerformancePreferences performancePreferences;
 		/**
 		 * 主机名
 		 */
@@ -98,10 +137,19 @@ public class ServerConfig {
 		@XmlElement(name = "port")
 		private int port = DEFAULT_PORT;
 		/**
-		 * 性能参数
+		 * 最大连接数
 		 */
-		@XmlElement(name = "performance-preferences")
-		private PerformancePreferences performancePreferences;
+		@XmlElement(name = "max-connections")
+		private int maxConnections = DEFAULT_MAX_CONNECTIONS;
+
+		/**
+		 * 获取性能参数
+		 * 
+		 * @return
+		 */
+		public PerformancePreferences getPerformancePreferences() {
+			return performancePreferences;
+		}
 
 		/**
 		 * 获取主机名
@@ -122,12 +170,12 @@ public class ServerConfig {
 		}
 
 		/**
-		 * 获取性能参数
+		 * 获取最大连接数
 		 * 
 		 * @return
 		 */
-		public PerformancePreferences getPerformancePreferences() {
-			return performancePreferences;
+		public int getMaxConnections() {
+			return maxConnections;
 		}
 
 		/**
@@ -180,6 +228,96 @@ public class ServerConfig {
 			public int getBandwidth() {
 				return bandwidth;
 			}
+		}
+	}
+
+	/**
+	 * 服务器配置:客户端参数
+	 * 
+	 * @author XuYQ
+	 *
+	 */
+	static class ClientPreferences {
+
+		/**
+		 * 超时时间
+		 */
+		@XmlElement(name = "timeout")
+		private Integer timeout;
+		/**
+		 * 活跃检测
+		 */
+		@XmlElement(name = "keep-alive")
+		private Boolean keepAlive;
+		/**
+		 * 是否消除缓冲延迟
+		 */
+		@XmlElement(name = "tcp-no-delay")
+		private Boolean tcpNoDelay;
+
+		/**
+		 * 获取超时时间
+		 * 
+		 * @return
+		 */
+		public Integer getTimeout() {
+			return timeout;
+		}
+
+		/**
+		 * 获取活跃检测
+		 * 
+		 * @return
+		 */
+		public Boolean getKeepAlive() {
+			return keepAlive;
+		}
+
+		/**
+		 * 获取是否消除缓冲延迟
+		 * 
+		 * @return
+		 */
+		public Boolean getTcpNoDelay() {
+			return tcpNoDelay;
+		}
+	}
+
+	/**
+	 * 服务器配置:Servlet
+	 * 
+	 * @author XuYQ
+	 *
+	 */
+	static class Servlet {
+
+		/**
+		 * 名称
+		 */
+		@XmlElement(name = "name")
+		private String name;
+		/**
+		 * 类路径
+		 */
+		@XmlElement(name = "class")
+		private String clazz;
+
+		/**
+		 * 获取名称
+		 * 
+		 * @return
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * 获取类路径
+		 * 
+		 * @return
+		 */
+		public String getClazz() {
+			return clazz;
 		}
 	}
 }
