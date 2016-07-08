@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<accounts>
-		<account>
-			<userCode>001</userCode>
-			<userName>徐英淇1</userName>
-			<icCardNo>111111111</icCardNo>
-			<balance>100</balance>
-			<price>5</price>
-		</account>
-		<account>
-			<userCode>002</userCode>
-			<userName>徐英淇2</userName>
-			<icCardNo>222222222</icCardNo>
-			<balance>200</balance>
-			<price>5</price>
-		</account>
-		<account>
-			<userCode>用户号</userCode>
-			<userName>用户名</userName>
-			<icCardNo>IC卡号</icCardNo>
-			<balance>20000</balance>
-			<price>1</price>
-		</account>
-	</accounts> 
+<socket-app>
+
+	<server-preferences>
+		<host-name>127.0.0.1</host-name>
+		<port>6000</port>
+		<performance-preferences>
+			<connection-time>1</connection-time>
+			<latency>1</latency>
+			<bandwidth>1</bandwidth>
+		</performance-preferences>
+	</server-preferences>
+</socket-app>

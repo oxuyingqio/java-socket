@@ -17,8 +17,6 @@
 
 		<xuyingqi.version>0.0.1</xuyingqi.version>
 
-		<dom4j.version>1.6.1</dom4j.version>
-
 		<maven-compiler-plugin.version>3.5</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
 		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
@@ -31,12 +29,6 @@
 			<artifactId>util</artifactId>
 			<version>${xuyingqi.version}</version>
 			<classifier>java</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>${dom4j.version}</version>
 		</dependency>
 	</dependencies>
 
