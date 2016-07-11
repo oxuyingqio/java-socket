@@ -13,6 +13,7 @@ import cn.xuyingqi.socket.ServerConfig.ClientPreferences;
 import cn.xuyingqi.socket.ServerConfig.ServerPreferences;
 import cn.xuyingqi.socket.ServerConfig.ServerPreferences.PerformancePreferences;
 import cn.xuyingqi.socket.servlet.Servlet;
+import cn.xuyingqi.socket.servlet.ServletConfig;
 
 /**
  * 服务器
@@ -53,8 +54,13 @@ public class Server {
 
 		// 初始化服务器
 		this.init();
+		// 打印日志
+		this.logger.info("服务器初始化完成");
+
 		// 激活服务器
 		this.activate();
+		// 打印日志
+		this.logger.info("服务器激活完成");
 	}
 
 	/**
@@ -62,8 +68,35 @@ public class Server {
 	 */
 	private void init() {
 
+		// 初始化服务器配置
+		this.initConfig();
+		// 打印日志
+		this.logger.info("服务器配置初始化完成");
+
+		// 初始化Socket服务器
+		this.initServer();
+		// 打印日志
+		this.logger.info("Socket服务初始化完成");
+
+		// 初始化Servlet
+		this.initServlet();
+		// 打印日志
+		this.logger.info("Servlet初始化完成");
+	}
+
+	/**
+	 * 初始化服务器配置
+	 */
+	private void initConfig() {
+
 		// 获取服务器配置
 		this.config = ServerConfig.newInstance();
+	}
+
+	/**
+	 * 初始化Socket服务器
+	 */
+	private void initServer() {
 
 		// 获取服务器参数
 		ServerPreferences sp = this.config.getServerPreferences();
@@ -90,6 +123,65 @@ public class Server {
 
 			// 打印参数
 			this.logger.error("服务器(" + sp.getHostName() + ":" + sp.getPort() + ")注册失败");
+		}
+	}
+
+	/**
+	 * 初始化Servlet
+	 */
+	@SuppressWarnings("unchecked")
+	private void initServlet() {
+
+		// Servlet名称
+		String name = this.config.getServlet().getName();
+		// Servlet类路径
+		String clazz = this.config.getServlet().getClazz();
+
+		try {
+
+			// 实例化Servlet
+			this.servlet = ((Class<Servlet>) Class.forName(clazz)).newInstance();
+			// 打印日志
+			this.logger.info("Servlet实例化完成");
+
+			// 初始化ServletConfig
+			this.initServletConfig();
+
+		} catch (ClassNotFoundException e) {
+
+			this.logger.error("获取Servlet(" + name + "):" + clazz + "未找到");
+
+		} catch (InstantiationException | IllegalAccessException e) {
+
+			this.logger.error("获取Servlet(" + name + "):" + clazz + "实例化失败");
+
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void initServletConfig() {
+
+		// Servlet配置类路径
+		String clazz = this.config.getServletConfig().getClazz();
+
+		try {
+
+			// 实例化Servlet配置
+			ServletConfig servletConfig = ((Class<ServletConfig>) Class.forName(clazz)).newInstance();
+			// 打印日志
+			this.logger.info("ServletConfig实例化完成");
+
+			// Servlet加载Servlet配置
+			this.servlet.init(servletConfig);
+
+		} catch (ClassNotFoundException e) {
+
+			this.logger.error("获取ServletConfig:" + clazz + "未找到");
+
+		} catch (InstantiationException | IllegalAccessException e) {
+
+			this.logger.error("获取ServletConfig:" + clazz + "实例化失败");
+
 		}
 	}
 
@@ -145,7 +237,7 @@ public class Server {
 					}
 
 					// 线程调度者中添加客户端连接的新线程
-					executor.execute(new Client(client));
+					executor.execute(new Client(servlet.getServletConfig().getServletContext(), client));
 
 				} catch (IOException e) {
 

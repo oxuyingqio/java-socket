@@ -2,6 +2,8 @@ package cn.xuyingqi.socket;
 
 import java.net.Socket;
 
+import cn.xuyingqi.socket.servlet.ServletContext;
+
 /**
  * 客户端
  * 
@@ -20,14 +22,14 @@ public class Client implements Runnable {
 	 * 
 	 * @param client
 	 */
-	public Client(Socket client) {
+	public Client(ServletContext servletContext, Socket client) {
 
 		this.client = client;
 	}
 
 	@Override
 	public void run() {
-		
-		
+
+		System.out.println(this.client);
 	}
 }

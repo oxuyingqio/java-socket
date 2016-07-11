@@ -45,10 +45,16 @@ public class ServerConfig {
 	private ClientPreferences clientPreferences;
 
 	/**
-	 * Servlet
+	 * Servlet信息
 	 */
 	@XmlElement(name = "servlet")
 	private Servlet servlet = new Servlet();
+
+	/**
+	 * Servlet配置
+	 */
+	@XmlElement(name = "servlet-config")
+	private ServletConfig servletConfig = new ServletConfig();
 
 	/**
 	 * 获取服务器参数
@@ -69,12 +75,21 @@ public class ServerConfig {
 	}
 
 	/**
-	 * 获取Servlet
+	 * 获取Servlet信息
 	 * 
 	 * @return
 	 */
 	public Servlet getServlet() {
 		return servlet;
+	}
+
+	/**
+	 * 获取Servlet配置
+	 * 
+	 * @return
+	 */
+	public ServletConfig getServletConfig() {
+		return servletConfig;
 	}
 
 	/**
@@ -284,7 +299,7 @@ public class ServerConfig {
 	}
 
 	/**
-	 * 服务器配置:Servlet
+	 * 服务器配置:Servlet信息
 	 * 
 	 * @author XuYQ
 	 *
@@ -292,15 +307,24 @@ public class ServerConfig {
 	static class Servlet {
 
 		/**
+		 * 默认的名称
+		 */
+		private static final String DEFAULT_NAME = "TestServlet";
+		/**
+		 * 默认的类路径
+		 */
+		private static final String DEFAULT_CLAZZ = "cn.xuyingqi.socket.servlet.impl.TestServlet";
+
+		/**
 		 * 名称
 		 */
 		@XmlElement(name = "name")
-		private String name;
+		private String name = DEFAULT_NAME;
 		/**
 		 * 类路径
 		 */
 		@XmlElement(name = "class")
-		private String clazz;
+		private String clazz = DEFAULT_CLAZZ;
 
 		/**
 		 * 获取名称
@@ -310,6 +334,35 @@ public class ServerConfig {
 		public String getName() {
 			return name;
 		}
+
+		/**
+		 * 获取类路径
+		 * 
+		 * @return
+		 */
+		public String getClazz() {
+			return clazz;
+		}
+	}
+
+	/**
+	 * 服务器配置:Servlet配置
+	 * 
+	 * @author XuYQ
+	 *
+	 */
+	static class ServletConfig {
+
+		/**
+		 * 默认的类路径
+		 */
+		private static final String DEFAULT_CLAZZ = "cn.xuyingqi.socket.servlet.impl.TestServlet";
+
+		/**
+		 * 类路径
+		 */
+		@XmlElement(name = "class")
+		private String clazz = DEFAULT_CLAZZ;
 
 		/**
 		 * 获取类路径

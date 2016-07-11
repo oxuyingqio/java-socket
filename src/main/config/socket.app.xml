@@ -20,7 +20,11 @@
 
 	<servlet>
 		<name>TestServler</name>
-		<class>net.newcapec.mainUi.web.servlet.WebSourceServlet</class>
+		<class>cn.xuyingqi.socket.servlet.impl.TestServlet</class>
 	</servlet>
+
+	<servlet-config>
+		<class>cn.xuyingqi.socket.servlet.impl.TestServlet</class>
+	</servlet-config>
 
 </socket-app>
