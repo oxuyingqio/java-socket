@@ -11,13 +11,6 @@ import java.io.OutputStream;
 public interface ServletResponse {
 
 	/**
-	 * 获取Servlet会话
-	 * 
-	 * @return
-	 */
-	public ServletSession getServletSession();
-
-	/**
 	 * 获取响应输出流
 	 * 
 	 * @return

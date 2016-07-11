@@ -11,13 +11,6 @@ import java.io.InputStream;
 public interface ServletRequest {
 
 	/**
-	 * 获取Servlet会话
-	 * 
-	 * @return
-	 */
-	public ServletSession getServletSession();
-
-	/**
 	 * 获取请求输入流
 	 * 
 	 * @return
