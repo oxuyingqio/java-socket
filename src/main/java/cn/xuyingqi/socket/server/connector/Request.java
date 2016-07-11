@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket.connector;
+package cn.xuyingqi.socket.server.connector;
 
 import java.io.InputStream;
 
