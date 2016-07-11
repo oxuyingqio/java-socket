@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket;
+package cn.xuyingqi.socket.old;
 
 import java.net.Socket;
 

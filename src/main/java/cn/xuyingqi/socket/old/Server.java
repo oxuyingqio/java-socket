@@ -1,4 +1,4 @@
-package cn.xuyingqi.socket;
+package cn.xuyingqi.socket.old;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -9,9 +9,9 @@ import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
-import cn.xuyingqi.socket.ServerConfig.ClientPreferences;
-import cn.xuyingqi.socket.ServerConfig.ServerPreferences;
-import cn.xuyingqi.socket.ServerConfig.ServerPreferences.PerformancePreferences;
+import cn.xuyingqi.socket.old.ServerConfig.ClientPreferences;
+import cn.xuyingqi.socket.old.ServerConfig.ServerPreferences;
+import cn.xuyingqi.socket.old.ServerConfig.ServerPreferences.PerformancePreferences;
 import cn.xuyingqi.socket.servlet.Servlet;
 import cn.xuyingqi.socket.servlet.ServletConfig;
 
