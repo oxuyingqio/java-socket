@@ -28,16 +28,16 @@ public class SocketProcessor {
 			// 获取输出流
 			OutputStream outputStream = socket.getOutputStream();
 
-			// 获取请求
-			SocketRequest request = new SocketRequest(inputStream);
-			// 获取响应
-			SocketResponse response = new SocketResponse(outputStream);
-			response.setRequest(request);
+			// 获取Socket请求
+			SocketRequest socketRequest = new SocketRequest(inputStream);
+			// 获取Socket响应
+			SocketResponse socketResponse = new SocketResponse(outputStream);
+			socketResponse.setSocketRequest(socketRequest);
 
 			// 获取Servlet处理器
 			ServletProcessor servletProcessor = new ServletProcessor();
 			// 处理请求响应
-			servletProcessor.process(request, response);
+			servletProcessor.process(socketRequest, socketResponse);
 
 		} catch (IOException e) {
 			e.printStackTrace();

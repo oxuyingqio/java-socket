@@ -11,26 +11,26 @@ import cn.xuyingqi.socket.servlet.Servlet;
 public class ServletProcessor {
 
 	/**
-	 * 处理客户端请求响应
+	 * 处理请求响应
 	 * 
-	 * @param request
-	 *            请求
-	 * @param response
-	 *            响应
+	 * @param socketRequest
+	 *            Socket请求
+	 * @param socketResponse
+	 *            Socket响应
 	 */
 	@SuppressWarnings("unchecked")
-	public void process(SocketRequest request, SocketResponse response) {
+	public void process(SocketRequest socketRequest, SocketResponse socketResponse) {
 
 		try {
 
-			// 加载ServletClass
+			// 加载Servlet类
 			Class<Servlet> servletClass = (Class<Servlet>) ClassLoader.getSystemClassLoader()
 					.loadClass("cn.xuyingqi.socket.servlet.impl.TestServlet");
 
-			// 创建Request外观类
-			SocketRequestFacade servletRequest = new SocketRequestFacade(request);
-			// 创建Response外观类
-			SocketResponseFacade servletResponse = new SocketResponseFacade(response);
+			// 创建Socket请求外观类
+			SocketRequestFacade servletRequest = new SocketRequestFacade(socketRequest);
+			// 创建Socket响应外观类
+			SocketResponseFacade servletResponse = new SocketResponseFacade(socketResponse);
 
 			// 实例化Servlet
 			Servlet servlet = servletClass.newInstance();

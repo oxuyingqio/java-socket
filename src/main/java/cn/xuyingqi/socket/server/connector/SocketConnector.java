@@ -45,6 +45,11 @@ public class SocketConnector {
 	private int port = PORT;
 
 	/**
+	 * Socket服务线程
+	 */
+	private Thread serverThread;
+
+	/**
 	 * 初始化Socket连接器
 	 */
 	public void init() {
@@ -55,6 +60,9 @@ public class SocketConnector {
 			this.server = new ServerSocket();
 			// 绑定主机,端口号
 			this.server.bind(new InetSocketAddress(this.hostName, this.port));
+
+			// 设置Socket服务线程
+			this.serverThread = new Thread(new ServerSocketThread());
 
 			// 打印日志
 			this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
@@ -71,20 +79,20 @@ public class SocketConnector {
 	 */
 	public void activate() {
 
-		// 启动Socket连接器线程
-		new Thread(new SocketConnectorThread()).start();
+		// 启动Socket服务线程
+		this.serverThread.start();
 
 		// 打印日志
 		this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")启动成功");
 	}
 
 	/**
-	 * Socket连接器线程
+	 * Socket服务线程
 	 * 
 	 * @author XuYQ
 	 *
 	 */
-	private class SocketConnectorThread implements Runnable {
+	private class ServerSocketThread implements Runnable {
 
 		@Override
 		public void run() {

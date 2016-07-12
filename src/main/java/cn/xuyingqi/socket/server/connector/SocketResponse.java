@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import cn.xuyingqi.socket.servlet.ServletResponse;
 
 /**
- * 响应
+ * Socket响应
  * 
  * @author XuYQ
  *
@@ -13,16 +13,16 @@ import cn.xuyingqi.socket.servlet.ServletResponse;
 public class SocketResponse implements ServletResponse {
 
 	/**
-	 * 请求
+	 * Socket请求
 	 */
-	private SocketRequest request;
+	private SocketRequest socketRequest;
 	/**
 	 * 输出流
 	 */
 	private OutputStream outputStream;
 
 	/**
-	 * 响应
+	 * Socket响应
 	 * 
 	 * @param outputStream
 	 *            输出流
@@ -33,21 +33,21 @@ public class SocketResponse implements ServletResponse {
 	}
 
 	/**
-	 * 获取请求
+	 * 获取Socket请求
 	 * 
 	 * @return
 	 */
-	public SocketRequest getRequest() {
-		return request;
+	public SocketRequest getSocketRequest() {
+		return socketRequest;
 	}
 
 	/**
-	 * 设置请求
+	 * 设置Socket请求
 	 * 
 	 * @param request
 	 */
-	public void setRequest(SocketRequest request) {
-		this.request = request;
+	public void setSocketRequest(SocketRequest socketRequest) {
+		this.socketRequest = socketRequest;
 	}
 
 	/**

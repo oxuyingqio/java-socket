@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import cn.xuyingqi.socket.servlet.ServletResponse;
 
 /**
- * Response外观类,防止向下转型
+ * Socket响应外观类,防止向下转型
  * 
  * @author XuYQ
  *
@@ -18,14 +18,14 @@ public class SocketResponseFacade implements ServletResponse {
 	private ServletResponse servletResponse;
 
 	/**
-	 * Response外观类
+	 * Socket响应外观类
 	 * 
-	 * @param response
-	 *            响应
+	 * @param socketResponse
+	 *            Socket响应
 	 */
-	public SocketResponseFacade(SocketResponse response) {
+	public SocketResponseFacade(SocketResponse socketResponse) {
 
-		this.servletResponse = response;
+		this.servletResponse = socketResponse;
 	}
 
 	@Override

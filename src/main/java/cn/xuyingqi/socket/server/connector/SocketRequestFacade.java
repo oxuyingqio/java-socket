@@ -18,14 +18,14 @@ public class SocketRequestFacade implements ServletRequest {
 	private ServletRequest servletRequest;
 
 	/**
-	 * Request外观类
+	 * Socket请求外观类
 	 * 
-	 * @param request
-	 *            请求
+	 * @param socketRequest
+	 *            Socket请求
 	 */
-	public SocketRequestFacade(SocketRequest request) {
+	public SocketRequestFacade(SocketRequest socketRequest) {
 
-		this.servletRequest = request;
+		this.servletRequest = socketRequest;
 	}
 
 	@Override
