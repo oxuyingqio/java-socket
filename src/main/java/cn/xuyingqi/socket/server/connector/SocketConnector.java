@@ -8,17 +8,17 @@ import java.net.Socket;
 import org.apache.log4j.Logger;
 
 /**
- * 连接器
+ * Socket连接器
  * 
  * @author XuYQ
  *
  */
-public class Connector {
+public class SocketConnector {
 
 	/**
 	 * 日志
 	 */
-	private Logger logger = Logger.getLogger(Connector.class);
+	private Logger logger = Logger.getLogger(SocketConnector.class);
 
 	/**
 	 * 默认主机名
@@ -30,7 +30,7 @@ public class Connector {
 	private static final int PORT = 60000;
 
 	/**
-	 * 连接器Socket
+	 * Socket服务
 	 */
 	private ServerSocket server;
 
@@ -45,7 +45,7 @@ public class Connector {
 	private int port = PORT;
 
 	/**
-	 * 初始化连接器
+	 * 初始化Socket连接器
 	 */
 	public void init() {
 
@@ -57,34 +57,34 @@ public class Connector {
 			this.server.bind(new InetSocketAddress(this.hostName, this.port));
 
 			// 打印日志
-			this.logger.info("连接器(" + this.hostName + ":" + this.port + ")注册成功");
+			this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
 
 		} catch (IOException e) {
 
 			// 打印日志
-			this.logger.error("连接器(" + this.hostName + ":" + this.port + ")注册失败");
+			this.logger.error("Socket连接器(" + this.hostName + ":" + this.port + ")注册失败");
 		}
 	}
 
 	/**
-	 * 激活连接器
+	 * 激活Socket连接器
 	 */
 	public void activate() {
 
-		// 启动连接器线程
-		new Thread(new ConnectorThread()).start();
+		// 启动Socket连接器线程
+		new Thread(new SocketConnectorThread()).start();
 
 		// 打印日志
-		this.logger.info("连接器(" + this.hostName + ":" + this.port + ")启动成功");
+		this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")启动成功");
 	}
 
 	/**
-	 * 连接器线程
+	 * Socket连接器线程
 	 * 
 	 * @author XuYQ
 	 *
 	 */
-	private class ConnectorThread implements Runnable {
+	private class SocketConnectorThread implements Runnable {
 
 		@Override
 		public void run() {
@@ -97,10 +97,10 @@ public class Connector {
 					// 客户端
 					Socket client = server.accept();
 
-					// 获取处理器
-					Processor processor = new Processor();
-					// 处理请求响应
-					processor.process(client);
+					// 获取Socket处理器
+					SocketProcessor socketProcessor = new SocketProcessor();
+					// 处理客户端连接
+					socketProcessor.process(client);
 
 					// 关闭客户端连接
 					client.close();

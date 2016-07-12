@@ -10,12 +10,12 @@ import cn.xuyingqi.socket.servlet.ServletResponse;
  * @author XuYQ
  *
  */
-public class Response implements ServletResponse {
+public class SocketResponse implements ServletResponse {
 
 	/**
 	 * 请求
 	 */
-	private Request request;
+	private SocketRequest request;
 	/**
 	 * 输出流
 	 */
@@ -27,14 +27,9 @@ public class Response implements ServletResponse {
 	 * @param outputStream
 	 *            输出流
 	 */
-	public Response(OutputStream outputStream) {
+	public SocketResponse(OutputStream outputStream) {
 
 		this.outputStream = outputStream;
-		try {
-			this.outputStream.write("123123123213".getBytes("GBK"));
-		} catch (Exception e) {
-
-		}
 	}
 
 	/**
@@ -42,7 +37,7 @@ public class Response implements ServletResponse {
 	 * 
 	 * @return
 	 */
-	public Request getRequest() {
+	public SocketRequest getRequest() {
 		return request;
 	}
 
@@ -51,7 +46,7 @@ public class Response implements ServletResponse {
 	 * 
 	 * @param request
 	 */
-	public void setRequest(Request request) {
+	public void setRequest(SocketRequest request) {
 		this.request = request;
 	}
 

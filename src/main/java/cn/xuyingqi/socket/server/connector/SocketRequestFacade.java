@@ -5,12 +5,12 @@ import java.io.InputStream;
 import cn.xuyingqi.socket.servlet.ServletRequest;
 
 /**
- * Request外观类
+ * Socket请求外观类,防止向下转型
  * 
  * @author XuYQ
  *
  */
-public class RequestFacade implements ServletRequest {
+public class SocketRequestFacade implements ServletRequest {
 
 	/**
 	 * Servlet请求
@@ -23,7 +23,7 @@ public class RequestFacade implements ServletRequest {
 	 * @param request
 	 *            请求
 	 */
-	public RequestFacade(Request request) {
+	public SocketRequestFacade(SocketRequest request) {
 
 		this.servletRequest = request;
 	}

@@ -5,12 +5,12 @@ import java.io.OutputStream;
 import cn.xuyingqi.socket.servlet.ServletResponse;
 
 /**
- * Response外观类
+ * Response外观类,防止向下转型
  * 
  * @author XuYQ
  *
  */
-public class ResponseFacade implements ServletResponse {
+public class SocketResponseFacade implements ServletResponse {
 
 	/**
 	 * Servlet响应
@@ -23,7 +23,7 @@ public class ResponseFacade implements ServletResponse {
 	 * @param response
 	 *            响应
 	 */
-	public ResponseFacade(Response response) {
+	public SocketResponseFacade(SocketResponse response) {
 
 		this.servletResponse = response;
 	}

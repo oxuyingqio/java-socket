@@ -1,6 +1,6 @@
 package cn.xuyingqi.socket.server.startup;
 
-import cn.xuyingqi.socket.server.connector.Connector;
+import cn.xuyingqi.socket.server.connector.SocketConnector;
 
 /**
  * 启动程序
@@ -12,7 +12,7 @@ public class Bootstrap {
 
 	public static void main(String[] args) {
 
-		Connector server = new Connector();
+		SocketConnector server = new SocketConnector();
 		server.init();
 		server.activate();
 	}

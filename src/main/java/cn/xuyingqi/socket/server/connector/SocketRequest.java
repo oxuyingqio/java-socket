@@ -5,12 +5,12 @@ import java.io.InputStream;
 import cn.xuyingqi.socket.servlet.ServletRequest;
 
 /**
- * 请求
+ * Socket请求
  * 
  * @author XuYQ
  *
  */
-public class Request implements ServletRequest {
+public class SocketRequest implements ServletRequest {
 
 	/**
 	 * 输入流
@@ -18,12 +18,12 @@ public class Request implements ServletRequest {
 	private InputStream inputStream;
 
 	/**
-	 * 请求
+	 * Socket请求
 	 * 
 	 * @param inputStream
 	 *            输入流
 	 */
-	public Request(InputStream inputStream) {
+	public SocketRequest(InputStream inputStream) {
 
 		this.inputStream = inputStream;
 	}
