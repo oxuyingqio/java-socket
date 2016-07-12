@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
+
 /**
  * Socket处理器
  * 
@@ -12,6 +14,11 @@ import java.net.Socket;
  *
  */
 public class SocketProcessor {
+
+	/**
+	 * 日志
+	 */
+	private static final Logger logger = Logger.getLogger(SocketProcessor.class);
 
 	/**
 	 * 处理客户端连接
@@ -40,7 +47,9 @@ public class SocketProcessor {
 			servletProcessor.process(socketRequest, socketResponse);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+
+			// 打印日志
+			logger.error("处理客户端连接异常");
 		}
 	}
 }

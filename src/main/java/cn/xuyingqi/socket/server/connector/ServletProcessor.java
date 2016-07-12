@@ -1,5 +1,7 @@
 package cn.xuyingqi.socket.server.connector;
 
+import org.apache.log4j.Logger;
+
 import cn.xuyingqi.socket.servlet.Servlet;
 
 /**
@@ -9,6 +11,11 @@ import cn.xuyingqi.socket.servlet.Servlet;
  *
  */
 public class ServletProcessor {
+
+	/**
+	 * 日志
+	 */
+	private static final Logger logger = Logger.getLogger(ServletProcessor.class);
 
 	/**
 	 * 处理请求响应
@@ -26,6 +33,8 @@ public class ServletProcessor {
 			// 加载Servlet类
 			Class<Servlet> servletClass = (Class<Servlet>) ClassLoader.getSystemClassLoader()
 					.loadClass("cn.xuyingqi.socket.servlet.impl.TestServlet");
+			// 打印日志
+			logger.error("ServletClass加载成功");
 
 			// 创建Socket请求外观类
 			SocketRequestFacade servletRequest = new SocketRequestFacade(socketRequest);
@@ -34,16 +43,26 @@ public class ServletProcessor {
 
 			// 实例化Servlet
 			Servlet servlet = servletClass.newInstance();
+			// 打印日志
+			logger.error("Servlet实例成功");
 
 			// 调用Servlet服务方法
 			servlet.service(servletRequest, servletResponse);
 
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+
+			// 打印日志
+			logger.error("ServletClass未找到");
+
 		} catch (InstantiationException e) {
-			e.printStackTrace();
+
+			// 打印日志
+			logger.error("ServletClass实例化失败");
+
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+
+			// 打印日志
+			logger.error("ServletClass实例化失败");
 		}
 	}
 }

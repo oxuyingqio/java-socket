@@ -18,7 +18,7 @@ public class SocketConnector {
 	/**
 	 * 日志
 	 */
-	private Logger logger = Logger.getLogger(SocketConnector.class);
+	private static final Logger logger = Logger.getLogger(SocketConnector.class);
 
 	/**
 	 * 默认主机名
@@ -65,25 +65,25 @@ public class SocketConnector {
 			this.serverThread = new Thread(new ServerSocketThread());
 
 			// 打印日志
-			this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
+			logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
 
 		} catch (IOException e) {
 
 			// 打印日志
-			this.logger.error("Socket连接器(" + this.hostName + ":" + this.port + ")注册失败");
+			logger.error("Socket连接器(" + this.hostName + ":" + this.port + ")注册失败");
 		}
 	}
 
 	/**
-	 * 激活Socket连接器
+	 * 启动Socket连接器
 	 */
-	public void activate() {
+	public void startup() {
 
 		// 启动Socket服务线程
 		this.serverThread.start();
 
 		// 打印日志
-		this.logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")启动成功");
+		logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")启动成功");
 	}
 
 	/**
@@ -115,6 +115,7 @@ public class SocketConnector {
 
 				} catch (IOException e) {
 
+					// 打印日志
 					logger.error("客户端连接异常");
 				}
 			}
