@@ -10,7 +10,7 @@ import cn.xuyingqi.socket.servlet.Servlet;
  * @author XuYQ
  *
  */
-public class ServletProcessor {
+public class ServletProcessor implements Runnable {
 
 	/**
 	 * 日志
@@ -34,7 +34,7 @@ public class ServletProcessor {
 			Class<Servlet> servletClass = (Class<Servlet>) ClassLoader.getSystemClassLoader()
 					.loadClass("cn.xuyingqi.socket.servlet.impl.TestServlet");
 			// 打印日志
-			logger.error("ServletClass加载成功");
+			logger.info("ServletClass加载成功");
 
 			// 创建Socket请求外观类
 			SocketRequestFacade servletRequest = new SocketRequestFacade(socketRequest);
@@ -44,7 +44,7 @@ public class ServletProcessor {
 			// 实例化Servlet
 			Servlet servlet = servletClass.newInstance();
 			// 打印日志
-			logger.error("Servlet实例成功");
+			logger.info("Servlet实例成功");
 
 			// 调用Servlet服务方法
 			servlet.service(servletRequest, servletResponse);
@@ -64,5 +64,10 @@ public class ServletProcessor {
 			// 打印日志
 			logger.error("ServletClass实例化失败");
 		}
+	}
+
+	@Override
+	public void run() {
+
 	}
 }

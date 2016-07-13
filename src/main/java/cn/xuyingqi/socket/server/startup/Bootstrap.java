@@ -14,6 +14,6 @@ public class Bootstrap {
 
 		SocketConnector server = new SocketConnector();
 		server.init();
-		server.startup();
+		server.start();
 	}
 }

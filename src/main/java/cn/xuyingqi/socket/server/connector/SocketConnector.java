@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
  * @author XuYQ
  *
  */
-public class SocketConnector {
+public class SocketConnector implements Runnable {
 
 	/**
 	 * 日志
@@ -38,16 +38,10 @@ public class SocketConnector {
 	 * 主机名
 	 */
 	private String hostName = HOST_NAME;
-
 	/**
 	 * 端口号
 	 */
 	private int port = PORT;
-
-	/**
-	 * Socket服务线程
-	 */
-	private Thread serverThread;
 
 	/**
 	 * 初始化Socket连接器
@@ -60,9 +54,6 @@ public class SocketConnector {
 			this.server = new ServerSocket();
 			// 绑定主机,端口号
 			this.server.bind(new InetSocketAddress(this.hostName, this.port));
-
-			// 设置Socket服务线程
-			this.serverThread = new Thread(new ServerSocketThread());
 
 			// 打印日志
 			logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
@@ -77,47 +68,40 @@ public class SocketConnector {
 	/**
 	 * 启动Socket连接器
 	 */
-	public void startup() {
+	public void start() {
 
-		// 启动Socket服务线程
-		this.serverThread.start();
+		// 创建线程
+		Thread thread = new Thread(this);
+		// 启动线程
+		thread.start();
 
 		// 打印日志
 		logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")启动成功");
 	}
 
-	/**
-	 * Socket服务线程
-	 * 
-	 * @author XuYQ
-	 *
-	 */
-	private class ServerSocketThread implements Runnable {
+	@Override
+	public void run() {
 
-		@Override
-		public void run() {
+		// 监听客户端连接
+		while (true) {
 
-			// 监听客户端连接
-			while (true) {
+			try {
 
-				try {
+				// 客户端
+				Socket client = server.accept();
 
-					// 客户端
-					Socket client = server.accept();
+				// 获取Socket处理器
+				SocketProcessor socketProcessor = new SocketProcessor();
+				// 处理客户端连接
+				socketProcessor.process(client);
 
-					// 获取Socket处理器
-					SocketProcessor socketProcessor = new SocketProcessor();
-					// 处理客户端连接
-					socketProcessor.process(client);
+				// 关闭客户端连接
+				client.close();
 
-					// 关闭客户端连接
-					client.close();
+			} catch (IOException e) {
 
-				} catch (IOException e) {
-
-					// 打印日志
-					logger.error("客户端连接异常");
-				}
+				// 打印日志
+				logger.error("客户端连接异常");
 			}
 		}
 	}
