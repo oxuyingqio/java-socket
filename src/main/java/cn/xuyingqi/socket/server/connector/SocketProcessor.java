@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
  * @author XuYQ
  *
  */
-public class SocketProcessor {
+public class SocketProcessor implements Runnable{
 
 	/**
 	 * 日志
@@ -51,5 +51,10 @@ public class SocketProcessor {
 			// 打印日志
 			logger.error("处理客户端连接异常");
 		}
+	}
+
+	@Override
+	public void run() {
+		
 	}
 }

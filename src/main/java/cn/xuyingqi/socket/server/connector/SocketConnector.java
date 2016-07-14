@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import cn.xuyingqi.socket.server.net.ServerSocketFactory;
+import cn.xuyingqi.util.util.ListFactory;
 
 /**
  * Socket连接器
@@ -44,24 +48,55 @@ public class SocketConnector implements Runnable {
 	private int port = PORT;
 
 	/**
+	 * Socket处理器集合
+	 */
+	private List<SocketProcessor> proccessors = ListFactory.newInstance();
+
+	/**
+	 * 最小Socket处理器个数
+	 */
+	private int minProcessors = 5;
+
+	/**
+	 * 最大Socket处理器个数
+	 */
+	private int maxProcessors = 20;
+
+	/**
 	 * 初始化Socket连接器
 	 */
 	public void init() {
 
+		// 创建Socket服务
+		this.server = this.open();
+	}
+
+	/**
+	 * 创建Socket服务
+	 * 
+	 * @return
+	 */
+	private ServerSocket open() {
+
 		try {
 
 			// 创建Socket服务
-			this.server = new ServerSocket();
+			ServerSocket serverSocket = new ServerSocketFactory().createServerSocket();
 			// 绑定主机,端口号
-			this.server.bind(new InetSocketAddress(this.hostName, this.port));
+			serverSocket.bind(new InetSocketAddress(this.hostName, this.port));
 
 			// 打印日志
 			logger.info("Socket连接器(" + this.hostName + ":" + this.port + ")注册成功");
+
+			// 返回Socket服务
+			return serverSocket;
 
 		} catch (IOException e) {
 
 			// 打印日志
 			logger.error("Socket连接器(" + this.hostName + ":" + this.port + ")注册失败");
+
+			return null;
 		}
 	}
 

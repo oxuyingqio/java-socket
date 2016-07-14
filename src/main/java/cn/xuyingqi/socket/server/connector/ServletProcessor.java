@@ -10,7 +10,7 @@ import cn.xuyingqi.socket.servlet.Servlet;
  * @author XuYQ
  *
  */
-public class ServletProcessor implements Runnable {
+public class ServletProcessor {
 
 	/**
 	 * 日志
@@ -64,10 +64,5 @@ public class ServletProcessor implements Runnable {
 			// 打印日志
 			logger.error("ServletClass实例化失败");
 		}
-	}
-
-	@Override
-	public void run() {
-
 	}
 }
