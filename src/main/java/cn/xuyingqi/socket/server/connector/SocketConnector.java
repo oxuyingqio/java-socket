@@ -6,9 +6,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import javax.net.ServerSocketFactory;
+
 import org.apache.log4j.Logger;
 
-import cn.xuyingqi.socket.server.net.ServerSocketFactory;
 import cn.xuyingqi.util.util.ListFactory;
 
 /**
@@ -32,6 +33,14 @@ public class SocketConnector implements Runnable {
 	 * 默认端口号
 	 */
 	private static final int PORT = 60000;
+	/**
+	 * 默认最小Socket处理器个数
+	 */
+	private static final int MIN_PROCESSORS = 5;
+	/**
+	 * 默认最大Socket处理器个数
+	 */
+	private static final int MAX_PROCESSORS = 20;
 
 	/**
 	 * Socket服务
@@ -55,12 +64,15 @@ public class SocketConnector implements Runnable {
 	/**
 	 * 最小Socket处理器个数
 	 */
-	private int minProcessors = 5;
-
+	private int minProcessors = MIN_PROCESSORS;
 	/**
 	 * 最大Socket处理器个数
 	 */
-	private int maxProcessors = 20;
+	private int maxProcessors = MAX_PROCESSORS;
+	/**
+	 * 当前Socket处理器个数
+	 */
+	private int curProcessors = 0;
 
 	/**
 	 * 初始化Socket连接器
@@ -81,7 +93,7 @@ public class SocketConnector implements Runnable {
 		try {
 
 			// 创建Socket服务
-			ServerSocket serverSocket = new ServerSocketFactory().createServerSocket();
+			ServerSocket serverSocket = ServerSocketFactory.getDefault().createServerSocket();
 			// 绑定主机,端口号
 			serverSocket.bind(new InetSocketAddress(this.hostName, this.port));
 
@@ -96,14 +108,21 @@ public class SocketConnector implements Runnable {
 			// 打印日志
 			logger.error("Socket连接器(" + this.hostName + ":" + this.port + ")注册失败");
 
-			return null;
+			e.printStackTrace();
 		}
+
+		return null;
 	}
 
 	/**
 	 * 启动Socket连接器
 	 */
 	public void start() {
+
+		// 创建Socket处理器
+		while (this.curProcessors < this.minProcessors) {
+			
+		}
 
 		// 创建线程
 		Thread thread = new Thread(this);
@@ -126,7 +145,7 @@ public class SocketConnector implements Runnable {
 				Socket client = server.accept();
 
 				// 获取Socket处理器
-				SocketProcessor socketProcessor = new SocketProcessor();
+				SocketProcessor socketProcessor = new SocketProcessor(this);
 				// 处理客户端连接
 				socketProcessor.process(client);
 

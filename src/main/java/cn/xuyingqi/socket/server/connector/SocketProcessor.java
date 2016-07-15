@@ -13,12 +13,27 @@ import org.apache.log4j.Logger;
  * @author XuYQ
  *
  */
-public class SocketProcessor implements Runnable{
+public class SocketProcessor implements Runnable {
 
 	/**
 	 * 日志
 	 */
 	private static final Logger logger = Logger.getLogger(SocketProcessor.class);
+
+	/**
+	 * Socket连接器
+	 */
+	private SocketConnector connector;
+
+	/**
+	 * Socket处理器
+	 * 
+	 * @param connector
+	 */
+	public SocketProcessor(SocketConnector connector) {
+
+		this.connector = connector;
+	}
 
 	/**
 	 * 处理客户端连接
@@ -55,6 +70,6 @@ public class SocketProcessor implements Runnable{
 
 	@Override
 	public void run() {
-		
+
 	}
 }
