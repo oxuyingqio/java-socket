@@ -176,4 +176,14 @@ public class TCPClient implements cn.xuyingqi.socket.tcp.client.TCPClient {
 
 		this.client.close();
 	}
+
+	public static void main(String[] args) {
+		TCPClient client = new TCPClient();
+		try {
+			client.init();
+			client.connect();
+		} catch (IOException | ConnectRefusedException e) {
+			e.printStackTrace();
+		}
+	}
 }
