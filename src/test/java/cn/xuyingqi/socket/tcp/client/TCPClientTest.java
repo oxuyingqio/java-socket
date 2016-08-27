@@ -29,16 +29,20 @@ public class TCPClientTest {
 			try {
 				client.connect();
 
-				while (true) {
-					client.sendMsg(new byte[] { 0, 0, 0, 0, 0 });
-					
-					byte[] a = client.receiveMsg();
-					System.out.println(Arrays.toString(a));
-					client.sendMsg(new byte[] { 0, 0, 0, 0, 0 });
+				client.sendMsg(new byte[] { 0, 0, 0, 0, 0 });
+				Thread.sleep(10000);
 				
-					client.close();
-				}
+				byte[] a = client.receiveMsg();
+				System.out.println(Arrays.toString(a));
+				
+				Thread.sleep(10000);
+				
+				client.sendMsg(new byte[] { 0, 0, 0, 0, 0 });
+			
+				client.close();
 			} catch (IOException | ConnectRefusedException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
