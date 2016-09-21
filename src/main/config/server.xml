@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<protocol name="protocol" className="cn.xuyingqi.netty.server.echo.protocol.EchoProtocol" />
+
+	<service>
+		<connector protocol="protocol" host="192.168.157.88" port="60000" timeout="200" maxConnections="50" />
+	</service>
+</server>
