@@ -197,7 +197,7 @@ public final class Connector implements cn.xuyingqi.net.server.connector.Connect
 					// 判断响应报文不为空
 					if (response.getDatagram() != null) {
 						// 写入响应数据报文
-						this.protocol.getEncoder().encode(this.socket, datagram);
+						this.protocol.getEncoder().encode(this.socket, response.getDatagram());
 					}
 
 				}
