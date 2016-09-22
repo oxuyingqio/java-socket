@@ -153,7 +153,7 @@ public final class Connector implements cn.xuyingqi.net.server.connector.Connect
 					(InetSocketAddress) this.socket.getLocalSocketAddress());
 
 			// 使用缓冲字节输入流,输出流
-			try (BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());) {
+			try (BufferedInputStream bis = new BufferedInputStream(this.socket.getInputStream());) {
 
 				// 获取终端输入的字节数组
 				byte[] msg = new byte[1024 * 1024];
@@ -206,7 +206,6 @@ public final class Connector implements cn.xuyingqi.net.server.connector.Connect
 				bis.close();
 				// 关闭套接字
 				this.socket.close();
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -26,7 +26,7 @@ public final class ProtocolContainer implements cn.xuyingqi.net.server.container
 	/**
 	 * 协议类对象集合
 	 */
-	private static Map<String, Protocol> protocolClasses = MapFactory.newInstance();
+	private static Map<String, Protocol> protocols = MapFactory.newInstance();
 
 	/**
 	 * 私有构造方法
@@ -80,18 +80,18 @@ public final class ProtocolContainer implements cn.xuyingqi.net.server.container
 	 */
 	private void addProtocol(String name, Protocol protocol) {
 
-		protocolClasses.put(name, protocol);
+		protocols.put(name, protocol);
 	}
 
 	@Override
 	public Protocol getProtocol(String name) {
 
-		return protocolClasses.get(name);
+		return protocols.get(name);
 	}
 
 	@Override
 	public Set<String> getProtocolNames() {
 
-		return protocolClasses.keySet();
+		return protocols.keySet();
 	}
 }
