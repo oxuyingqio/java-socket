@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<client-app>
+
+	<servlet name="echo1" client="client1" className="cn.xuyingqi.netty.client.echo.servlet.EchoServlet" />
+	<servlet name="echo2" client="client2" className="cn.xuyingqi.netty.client.echo.servlet.EchoServlet" />
+</client-app>
