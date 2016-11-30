@@ -134,6 +134,8 @@ public final class Connector implements cn.xuyingqi.net.server.connector.Connect
 
 			// 设置客户端连接
 			this.socket = socket;
+			// 打印日志
+			System.out.println(this.socket.getInetAddress() + " 已连接");
 
 			try {
 
@@ -202,6 +204,8 @@ public final class Connector implements cn.xuyingqi.net.server.connector.Connect
 
 				}
 
+				// 打印日志
+				System.out.println(this.socket.getInetAddress() + " 已离线");
 				// 关闭字节输入流
 				bis.close();
 				// 关闭套接字
